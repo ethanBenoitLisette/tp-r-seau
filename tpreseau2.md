@@ -150,7 +150,20 @@ Interface : 192.168.5.2 --- 0x6
 ````
 🌞 Wireshark it
 
-rep 2 tp 2 
+vous savez maintenant comment forcer un échange ARP : il sufit de vider la table ARP et tenter de contacter quelqu'un, l'échange ARP se fait automatiquement
+mettez en évidence les deux trames ARP échangées lorsque vous essayez de contacter quelqu'un pour la "première" fois
+
+déterminez, pour les deux trames, les adresses source et destination
+déterminez à quoi correspond chacune de ces adresses
+
+
+
+🦈 PCAP qui contient les trames ARP
+
+[reponce](pics/rep%202%20tp%202.pcapng)
+
+L'échange ARP est constitué de deux trames : un ARP broadcast et un ARP reply.
+
 
 II.5 Interlude hackerzz
 Chose promise chose due, on va voir les bases de l'usurpation d'identité en réseau : on va parler d'ARP poisoning.
@@ -212,12 +225,7 @@ Quand on arrive dans un réseau, notre PC contacte un serveur DHCP, et récupèr
 L'échange DHCP  entre un client et le serveur DHCP consiste en 4 trames : DORA, que je vous laisse chercher sur le web vous-mêmes : D
 🌞 Wireshark it
 
-identifiez les 4 trames DHCP lors d'un échange DHCP
-
-mettez en évidence les adresses source et destination de chaque trame
-
-
-identifiez dans ces 4 trames les informations 1, 2 et 3 dont on a parlé juste au dessus
+[réponce](pics/rep-3_tp-2.pcapng)
 
 🦈 PCAP qui contient l'échange DORA
 
