@@ -94,77 +94,60 @@ Carte Ethernet Ethernet :
 adresse du réseau : 192.168.4.0
 adresse du broadcast : 192.168.7.255
 ````
-````C:\Users\hugoa> ping 192.168.5.2
+
+
+🌞 Prouvez que la connexion est fonctionnelle entre les deux machines
+
+C:\Users\hugoa> ping 192.168.5.2
 
 Envoi d’une requête 'Ping'  192.168.5.2 avec 32 octets de données :
 Réponse de 192.168.5.2 : octets=32 temps=4 ms TTL=128
 Réponse de 192.168.5.2 : octets=32 temps=4 ms TTL=128
-````
-
-🌞 Prouvez que la connexion est fonctionnelle entre les deux machines
-
-un ping suffit !
 
 🌞 Wireshark it
 
 
-ping ça envoie des paquets de type ICMP (c'est pas de l'IP, c'est un de ses frères)
-
-les paquets ICMP sont encapsulés dans des trames Ethernet, comme les paquets IP
-il existe plusieurs types de paquets ICMP, qui servent à faire des trucs différents
-
-
-
-déterminez, grâce à Wireshark, quel type de paquet ICMP est envoyé par ping
-
-pour le ping que vous envoyez
-et le pong que vous recevez en retour
-
-
-
-
-Vous trouverez sur la page Wikipedia de ICMP un tableau qui répertorie tous les types ICMP et leur utilité
-
-🦈 PCAP qui contient les paquets ICMP qui vous ont permis d'identifier les types ICMP
-
-II. ARP my bro
-ARP permet, pour rappel, de résoudre la situation suivante :
-
-pour communiquer avec quelqu'un dans un LAN, il FAUT connaître son adresse MAC
-on admet un PC1 et un PC2 dans le même LAN :
-
-PC1 veut joindre PC2
-PC1 et PC2 ont une IP correctement définie
-PC1 a besoin de connaître la MAC de PC2 pour lui envoyer des messages
-dans cette situation, PC1 va utilise le protocole ARP pour connaître la MAC de PC2
-une fois que PC1 connaît la mac de PC2, il l'enregistre dans sa table ARP
-
+c'est le ping_num1
 
 
 
 🌞 Check the ARP table
+````
+PS C:\Users\Ethan> arp -a
 
-utilisez une commande pour afficher votre table ARP
-déterminez la MAC de votre binome depuis votre table ARP
-déterminez la MAC de la gateway de votre réseau
-
-celle de votre réseau physique, WiFi, genre YNOV, car il n'y en a pas dans votre ptit LAN
-c'est juste pour vous faire manipuler un peu encore :)
-
-
-
-
-Il peut être utile de ré-effectuer des ping avant d'afficher la table ARP. En effet : les infos stockées dans la table ARP ne sont stockées que temporairement. Ce laps de temps est de l'ordre de ~60 secondes sur la plupart de nos machines.
+Interface : 192.168.5.2 --- 0x6
+  Adresse Internet      Adresse physique      Type
+  192.168.5.1           9c-2d-cd-16-48-33     dynamique
+  192.168.7.255         ff-ff-ff-ff-ff-ff     statique
+````
 
 🌞 Manipuler la table ARP
 
-utilisez une commande pour vider votre table ARP
-prouvez que ça fonctionne en l'affichant et en constatant les changements
-ré-effectuez des pings, et constatez la ré-apparition des données dans la table ARP
+````PS C:\Windows\system32> arp -d
+PS C:\Windows\system32> arp -a
 
+Interface : 192.168.5.2 --- 0x6
+  Adresse Internet      Adresse physique      Type
+  192.168.5.1           9c-2d-cd-16-48-33     dynamique
+  224.0.0.22            01-00-5e-00-00-16     statique
+  ````
+````
+  PS C:\Users\Ethan> ping 192.168.5.1
 
-Les échanges ARP sont effectuées automatiquement par votre machine lorsqu'elle essaie de joindre une machine sur le même LAN qu'elle. Si la MAC du destinataire n'est pas déjà dans la table ARP, alors un échange ARP sera déclenché.
+Envoi d’une requête 'Ping'  192.168.5.1 avec 32 octets de données :
+Réponse de 192.168.5.1 : octets=32 temps=4 ms TTL=128
+````
+````
+PS C:\Windows\system32> arp -a
 
+Interface : 192.168.5.2 --- 0x6
+  Adresse Internet      Adresse physique      Type
+  192.168.5.1           9c-2d-cd-16-48-33     dynamique
+  192.168.7.255         ff-ff-ff-ff-ff-ff     statique
+  224.0.0.22            01-00-5e-00-00-16     statique
+  224.0.0.251           01-00-5e-00-00-fb     statique
+  239.255.255.250       01-00-5e-7f-ff-fa     statique
+````
 🌞 Wireshark it
 
 vous savez maintenant comment forcer un échange ARP : il sufit de vider la table ARP et tenter de contacter quelqu'un, l'échange ARP se fait automatiquement
