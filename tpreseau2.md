@@ -150,18 +150,7 @@ Interface : 192.168.5.2 --- 0x6
 ````
 🌞 Wireshark it
 
-vous savez maintenant comment forcer un échange ARP : il sufit de vider la table ARP et tenter de contacter quelqu'un, l'échange ARP se fait automatiquement
-mettez en évidence les deux trames ARP échangées lorsque vous essayez de contacter quelqu'un pour la "première" fois
-
-déterminez, pour les deux trames, les adresses source et destination
-déterminez à quoi correspond chacune de ces adresses
-
-
-
-🦈 PCAP qui contient les trames ARP
-
-L'échange ARP est constitué de deux trames : un ARP broadcast et un ARP reply.
-
+rep 2 tp 2 
 
 II.5 Interlude hackerzz
 Chose promise chose due, on va voir les bases de l'usurpation d'identité en réseau : on va parler d'ARP poisoning.
