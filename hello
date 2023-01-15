@@ -1,0 +1,7 @@
+from arprequest import ArpRequest
+ar = ArpRequest('10.0.0.1', 'eth0')
+ar.request()
+True
+ar2 = ArpRequest('10.0.0.123', 'eth0') # 10.0.0.123 doesen't exist
+ar2.request()
+False
